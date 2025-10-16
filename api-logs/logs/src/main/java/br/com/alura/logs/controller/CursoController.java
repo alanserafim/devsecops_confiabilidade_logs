@@ -1,5 +1,7 @@
 package br.com.alura.logs.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +15,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
-import br.com.alura.logs.CursoApplication;
 import br.com.alura.logs.dto.CursoDto;
 import br.com.alura.logs.model.CursoModel;
 import br.com.alura.logs.service.CursoService;
@@ -24,6 +25,7 @@ import br.com.alura.logs.service.CursoService;
 public class CursoController {
 	
 	final CursoService cursoService;
+	private static Logger looger = LoggerFactory.getLogger(CursoController.class);
 	
 	public CursoController(CursoService cursoService) {
 		this.cursoService = cursoService;
@@ -49,6 +51,7 @@ public class CursoController {
 	
 	@GetMapping
 	public ResponseEntity<Page<CursoModel>> getAllCursos(@PageableDefault(page = 0, size = 10, sort = "dataInscricao", direction = Sort.Direction.ASC) Pageable pageable) {
+		looger.info("Buscando todos os registros");
 		return ResponseEntity.status(HttpStatus.OK).body(cursoService.findAll(pageable));
 	}
 	
