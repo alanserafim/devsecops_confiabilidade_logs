@@ -1,34 +1,13 @@
 <configuration>
-	<property name="LOG_PATH" value="logs/api-cursos.log"/>
-	
-	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_PATH}</file>
-		<append>true</append>
-		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-	        <fileNamePattern>${LOG_PATH}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
-	        <maxFileSize>100KB</maxFileSize>
-	        <totalSizeCap>1MB</totalSizeCap>
-	        <maxHistory>12</maxHistory>
-    	</rollingPolicy>
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-		</encoder>
-	</appender>
-	
-	<!-- configurar um log diferente da conf global 
-	<logger name="br.com.alura.logs.controller.CursoController" level="info" additivity="false">
-		<appender-ref ref="FILE" />
-	</logger>
-	-->
 	
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 			<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<!--      timestamp        thread   loglevel path   metodo  msg rootException quebra de linha -->
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{0} %M - %msg %rEx{short} %n</pattern>
 		</encoder>
 	</appender>
 	
-	<root level="trace">
+	<root level="info">
 		<appender-ref ref="STDOUT"/>
-		<appender-ref ref="FILE"/>
 	</root>
 </configuration>
